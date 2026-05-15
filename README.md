@@ -1,56 +1,195 @@
 # AI Assistant
 
-A small FastAPI app that serves a web page and forwards chat messages to the Google Gemini Generative AI API using the `google.genai` client.
+A lightweight AI assistant built using FastAPI and Google Gemini API.  
+This project provides a simple web-based chat interface where users can send messages and receive AI-generated responses in real time.
 
-## Project structure
+---
 
-- `main.py` - FastAPI application entry point
-- `templates/index.html` - browser UI for sending messages and showing responses
-- `myenv/` - local Python virtual environment
+# Features
 
-## Setup
+- FastAPI backend
+- Google Gemini AI integration
+- Simple browser-based chat UI
+- Environment variable support using `.env`
+- Lightweight and beginner-friendly architecture
 
-1. Activate the virtual environment:
+---
 
-   ```powershell
-   .\myenv\Scripts\Activate.ps1
-   ```
+# Project Structure
 
-2. Install dependencies if needed:
+```text
+AI-Assistant/
+│
+├── main.py                 # FastAPI application
+├── templates/
+│   └── index.html          # Frontend chat interface
+├── .env                    # API keys (not uploaded to GitHub)
+├── .gitignore
+├── requirements.txt
+└── myenv/                  # Virtual environment
+```
 
-   ```powershell
-   pip install -r requirements.txt
-   ```
+---
 
-   If `requirements.txt` is not present, install:
+# Tech Stack
 
-   ```powershell
-   pip install fastapi uvicorn python-dotenv google-genai
-   ```
+- Python
+- FastAPI
+- Google Gemini API
+- HTML / JavaScript
+- Jinja2 Templates
 
-3. Create a `.env` file in the project root with your Gemini API key:
+---
 
-   ```text
-   GEMINI_API_KEY=your_api_key_here
-   ```
+# Setup Instructions
 
-## Run the app
+## 1. Clone the Repository
 
-Start the server with:
+```bash
+git clone <your-repository-url>
+cd AI-Assistant
+```
+
+---
+
+## 2. Create and Activate Virtual Environment
+
+### Windows PowerShell
+
+```powershell
+python -m venv myenv
+.\myenv\Scripts\Activate.ps1
+```
+
+---
+
+## 3. Install Dependencies
+
+```powershell
+pip install -r requirements.txt
+```
+
+If `requirements.txt` is unavailable:
+
+```powershell
+pip install fastapi uvicorn python-dotenv google-genai jinja2
+```
+
+---
+
+## 4. Configure Environment Variables
+
+Create a `.env` file in the project root:
+
+```env
+GEMINI_API_KEY=your_api_key_here
+```
+
+---
+
+# Running the Application
+
+Start the FastAPI development server:
 
 ```powershell
 uvicorn main:app --reload
 ```
 
-Then open `http://127.0.0.1:8000` in your browser.
+Open your browser and visit:
 
-## Notes
+```text
+http://127.0.0.1:8000
+```
 
-- The app uses the Gemini model `gemini-2.0-flash`.
-- If the API key does not have quota, the page may show a `429 RESOURCE_EXHAUSTED` message.
-- The UI is a simple single-page form that sends a JSON POST to `/chat` and displays the response.
+---
 
-## Troubleshooting
+# API Endpoint
 
-- If you see an error loading the page, check that `templates/index.html` exists and is not empty.
-- If `/chat` returns a quota error, verify your Gemini billing/plan and API key.
+## POST `/chat`
+
+Sends a user message to the Gemini model and returns the AI response.
+
+### Example Request
+
+```json
+{
+  "message": "Hello AI"
+}
+```
+
+### Example Response
+
+```json
+{
+  "reply": "Hello! How can I help you today?"
+}
+```
+
+---
+
+# Model Used
+
+This project currently uses:
+
+```text
+gemini-2.0-flash
+```
+
+---
+
+# Security Notes
+
+- Never upload your `.env` file to GitHub.
+- Keep your API keys private.
+- `.gitignore` should include:
+
+```text
+.env
+myenv/
+__pycache__/
+```
+
+---
+
+# Troubleshooting
+
+## Template Errors
+
+Ensure the file exists:
+
+```text
+templates/index.html
+```
+
+---
+
+## API Errors / Quota Errors
+
+If you receive:
+
+```text
+429 RESOURCE_EXHAUSTED
+```
+
+Then:
+- Verify your Gemini API quota
+- Check API key validity
+- Ensure billing/quota limits are available
+
+---
+
+# Future Improvements
+
+- Chat history
+- Streaming responses
+- Better UI/UX
+- Authentication
+- Database integration
+- Voice input/output
+- Multi-model support
+
+---
+
+# License
+
+This project is open-source and free to use for learning purposes.
