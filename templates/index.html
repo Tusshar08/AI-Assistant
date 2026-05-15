@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>AI Assistant</title>
+</head>
+<body>
+
+<h1>My Gemini AI Assistant</h1>
+
+<input type="text" id="message" />
+<button onclick="sendMessage()">Send</button>
+
+<p id="response"></p>
+
+<script>
+async function sendMessage() {
+
+    const message = document.getElementById("message").value;
+
+    const res = await fetch("/chat", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({ message })
+    });
+
+    let data;
+    try {
+        data = await res.json();
+    } catch (err) {
+        document.getElementById("response").innerText = `Request failed: ${res.status}`;
+        return;
+    }
+
+    if (!res.ok) {
+        document.getElementById("response").innerText = data.error || `Error ${res.status}`;
+        return;
+    }
+
+    document.getElementById("response").innerText = data.reply ?? data.error ?? `Unexpected response: ${JSON.stringify(data)}`;
+}
+</script>
+
+</body>
+</html>
