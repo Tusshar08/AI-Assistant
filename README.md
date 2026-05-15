@@ -137,20 +137,6 @@ gemini-2.0-flash
 
 ---
 
-# Security Notes
-
-- Never upload your `.env` file to GitHub.
-- Keep your API keys private.
-- `.gitignore` should include:
-
-```text
-.env
-myenv/
-__pycache__/
-```
-
----
-
 # Troubleshooting
 
 ## Template Errors
